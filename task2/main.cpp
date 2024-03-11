@@ -4,8 +4,6 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 
-#define w 400
-
 int main( void ){
     cv::Mat image = cv::imread("./image.jpeg", cv::IMREAD_COLOR);
 
