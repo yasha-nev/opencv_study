@@ -1,7 +1,0 @@
-/Users/yasha_nev/projects/opencv_study/task8/build/CMakeFiles/opencvtest.dir
-/Users/yasha_nev/projects/opencv_study/task8/build/CMakeFiles/edit_cache.dir
-/Users/yasha_nev/projects/opencv_study/task8/build/CMakeFiles/rebuild_cache.dir
-/Users/yasha_nev/projects/opencv_study/task8/build/CMakeFiles/list_install_components.dir
-/Users/yasha_nev/projects/opencv_study/task8/build/CMakeFiles/install.dir
-/Users/yasha_nev/projects/opencv_study/task8/build/CMakeFiles/install/local.dir
-/Users/yasha_nev/projects/opencv_study/task8/build/CMakeFiles/install/strip.dir
