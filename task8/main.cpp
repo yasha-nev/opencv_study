@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 #include <filesystem>
-#include <cmath>
+#include <cstdlib>
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
@@ -29,11 +29,11 @@ int main() {
     
     std::vector<std::vector<cv::Point>> contours;
     std::vector<cv::Vec4i> hierarchy;
-    
+	
     getCardsImages("./cards/", cards, cards_name);
-    
+
     cv::Mat image = cv::imread("./image.jpeg");
-    
+
     find_contours(image, contours, hierarchy);
     
     find_cards(contours, image);
@@ -65,7 +65,6 @@ int main() {
             break;
         }
     }*/
-    
 }
 
 void getCardsImages(std::string path, std::vector<cv::Mat> &cards, std::vector<std::string> &cards_name){
@@ -73,7 +72,7 @@ void getCardsImages(std::string path, std::vector<cv::Mat> &cards, std::vector<s
     for (const auto& entry : std::filesystem::directory_iterator(path)){
         std::string imPath = cv::samples::findFile(entry.path());
         
-        cv::Mat card = cv::imread(imPath, cv::IMREAD_GRAYSCALE);
+        cv::Mat card = cv::imread(imPath);
         
         if(card.empty()){
             continue;
@@ -83,10 +82,6 @@ void getCardsImages(std::string path, std::vector<cv::Mat> &cards, std::vector<s
         name.erase(0, 8);
         
         cv::resize(card, card, cv::Size(145, 220));
-        
-        card.convertTo(card, -1, 1, 50);
-        
-        equalizeHist( card, card );
         
         cards_name.push_back(name);
         cards.push_back(card);
@@ -136,9 +131,6 @@ void find_cards(std::vector<std::vector<cv::Point>> &contours, cv::Mat &image){
         if (img.empty()){
             continue;
         }
-        
-        cv::cvtColor(img, img, cv::COLOR_RGB2GRAY);
-        equalizeHist(img, img);
         
         std::string name = get_key_features(img);
         putText(image, name, point, 1, 2, cv::Scalar(255, 255, 255), 5);
@@ -198,7 +190,7 @@ std::string get_key_features(cv::Mat &image){
         matches.push_back({i, good_matches.size()});
     }
     
-    std::sort(matches.begin(), matches.end(), [](std::pair<size_t, size_t> r, std::pair<size_t, size_t> l){
+    std::sort(matches.begin(), matches.end(), [&](std::pair<size_t, size_t> r, std::pair<size_t, size_t> l){
         return r.second > l.second;
     });
     
